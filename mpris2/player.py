@@ -449,11 +449,11 @@ if __name__ == '__main__':
     import gobject
     
     def my_handler(self, Position):
-        print 'handled', Position, type(Position)
-        print 'self handled', self.last_fn_return, type(self.last_fn_return)
+        print('handled', Position, type(Position))
+        print('self handled', self.last_fn_return, type(self.last_fn_return))
     
     def another_handler(self, *args, **kw): 
-        print args, kw
+        print(args, kw)
 
     mloop = gobject.MainLoop()
     #print mp2.Seeked

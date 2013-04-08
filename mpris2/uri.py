@@ -9,4 +9,4 @@ class Uri(str):
         return self._uri
     
 if __name__ == "__main__":
-    print Uri('http://www.com.br')
+    print(Uri('http://www.com.br'))

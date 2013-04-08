@@ -17,14 +17,14 @@ from uri import Uri
 from volume import Volume
 
 if __name__ == '__main__':
-    print Loop_Status
-    print Metadata_Map
-    print Playback_Rate
-    print Playback_Status
-    print Playlist
-    print Playlist_Id
-    print Playlist_Ordering
-    print Maybe_Playlist
-    print Time_In_Us
-    print Uri
-    print Volume
+    print(Loop_Status)
+    print(Metadata_Map)
+    print(Playback_Rate)
+    print(Playback_Status)
+    print(Playlist)
+    print(Playlist_Id)
+    print(Playlist_Ordering)
+    print(Maybe_Playlist)
+    print(Time_In_Us)
+    print(Uri)
+    print(Volume)

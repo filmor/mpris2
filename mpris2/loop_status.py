@@ -27,7 +27,7 @@ Loop_Status.TRACK = Loop_Status(TRACK)
 Loop_Status.PLAYLIST = Loop_Status(PLAYLIST)
 
 if  __name__ == "__main__":
-    print Loop_Status.PLAYLIST
-    print type(Loop_Status.PLAYLIST)
-    print Loop_Status.PLAYLIST == NONE 
-    print Loop_Status.PLAYLIST == PLAYLIST
+    print(Loop_Status.PLAYLIST)
+    print(type(Loop_Status.PLAYLIST))
+    print(Loop_Status.PLAYLIST == NONE) 
+    print(Loop_Status.PLAYLIST == PLAYLIST)

@@ -17,4 +17,4 @@ class Time_In_Us(int):
         return self._time
 
 if __name__ == "__main__":
-    print Time_In_Us(10)
+    print(Time_In_Us(10))

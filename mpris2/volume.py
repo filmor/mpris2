@@ -25,4 +25,4 @@ class Volume(float):
         return self._volume
     
 if __name__ == "__main__":
-    print Volume(1)
+    print(Volume(1))

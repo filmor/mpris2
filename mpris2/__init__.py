@@ -102,10 +102,10 @@ import mpris2.types as types
 import mpris2.utils as utils
 
 if __name__ == '__main__':
-    print Interfaces
-    print MediaPlayer2
-    print Player
-    print Playlists
-    print TrackList
-    print types
-    print utils
+    print(Interfaces)
+    print(MediaPlayer2)
+    print(Player)
+    print(Playlists)
+    print(TrackList)
+    print(types)
+    print(utils)
