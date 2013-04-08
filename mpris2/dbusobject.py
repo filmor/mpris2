@@ -1,5 +1,22 @@
 import dbus
 
+class MaybeDbusMethod():
+    def __init__(self, proxies, method_name):
+        self.proxies = proxies
+        self.method_name = method_name
+
+    def __str__(self):
+        return "<MaybeDbusMethod(bus_name='{}', method_name='{}')>".format(self.proxies.popitem()[1].requested_bus_name, self.method_name)
+
+    __repr__ = __str__
+
+    def __call__(self, *args, **kwargs):
+        for proxy in self.proxies.values():
+            try:
+                return getattr(proxy, self.method_name)(*args, **kwargs)
+            except dbus.exceptions.DBusException:
+                continue
+        raise NameError("This is not a method. Or something. TODO introspection")
 
 class DbusObject():
     _objects = {}
@@ -29,15 +46,7 @@ class DbusObject():
             if item in self._properties.GetAll(interface):
                 return self._properties.Get(interface, item)
 
-        def hack(*args, **kwargs):
-            for proxy in self._objects.values():
-                try:
-                    return getattr(proxy, item)(*args, **kwargs)
-                except dbus.exceptions.DBusException:
-                    continue
-            raise NameError("This is not a method. Or something. TODO introspection")
-
-        return hack
+        return MaybeDbusMethod(self._objects, item)
 
     def __getattr__(self, item):
         if item in self.__dict__.keys():
