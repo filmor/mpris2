@@ -18,7 +18,7 @@ class MaybeDbusMethod():
                 continue
         raise NameError("This is not a method. Or something. TODO introspection")
 
-class DbusObject():
+class DbusObject(object):
     _objects = {}
     _properties = None
 
@@ -37,7 +37,7 @@ class DbusObject():
                     del self._objects[interface]
 
     def __str__(self):
-        return "<{}(bus_name='{}')>".format(self.__class__.__qualname__, self._objects.popitem()[1].requested_bus_name)
+        return "<{}(bus_name='{}')>".format(self.__class__.__name__, self._objects.popitem()[1].requested_bus_name)
 
     __repr__ = __str__
 
