@@ -1,5 +1,6 @@
 import dbus
 from sys import version_info
+from lxml import etree
 
 class MaybeDbusMethod():
     def __init__(self, proxies, method_name):
@@ -25,12 +26,12 @@ class DbusObject(object):
 
     def __init__(self, bus_name, object_path, interfaces, bus=dbus.SessionBus()):
 
-        proxy = bus.get_object(bus_name, object_path)
+        self._proxy = bus.get_object(bus_name, object_path)
 
-        self._properties = dbus.Interface(proxy, 'org.freedesktop.DBus.Properties')
+        self._properties = dbus.Interface(self._proxy, 'org.freedesktop.DBus.Properties')
 
         for interface in interfaces:
-            self._objects[interface] = dbus.Interface(proxy, interface)
+            self._objects[interface] = dbus.Interface(self._proxy, interface)
             try:
                 self._properties.GetAll(interface)
             except dbus.exceptions.DBusException as ex:
@@ -71,3 +72,11 @@ class DbusObject(object):
     def connect_to_signal(self, signal_name, handler):
         for proxy in self._objects.values():
             proxy.connect_to_signal(signal_name, handler)
+
+    def introspect(self):
+        interface = 'org.freedesktop.DBus.Introspectable'
+        xml_data = etree.fromstring(dbus.Interface(self._proxy, interface).Introspect())
+        for item in xml_data.iter():
+            print item.attrib
+        return 
+                

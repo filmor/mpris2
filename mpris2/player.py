@@ -26,14 +26,13 @@ LoopStatus = enum('LoopStatus',
                   'None'
 )
 
-# move introspect out to dbusobject
+
 class Player(DbusObject):
     def __init__(self, bus_name, bus):
         super(Player, self).__init__(bus_name, '/org/mpris/MediaPlayer2', [_main_interface, 
                                                                            'org.mpris.MediaPlayer2.Player', 
                                                                            'org.mpris.MediaPlayer2.TrackList', 
-                                                                           'org.mpris.MediaPlayer2.Playlists',
-                                                                           'org.freedesktop.DBus.Introspectable'], bus)
+                                                                           'org.mpris.MediaPlayer2.Playlists'], bus)
 
     @property
     def Metadata(self):
