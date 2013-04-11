@@ -42,10 +42,6 @@ class DbusObject(object):
         if ver < 3:
             return "<%s(bus_name='%s')>" % (self.__class__.__name__, self._objects.popitem()[1].requested_bus_name)
         return "<{}(bus_name='{}')>".format(self.__class__.__qualname__, self._objects.popitem()[1].requested_bus_name)
-#        try:
-#            return "<{}(bus_name='{}')>".format(self.__class__.__qualname__, self._objects.popitem()[1].requested_bus_name)
-#        except AttributeError:
-#            return "<{}(bus_name='{}')>".format(self.__class__.__name__, self._objects.popitem()[1].requested_bus_name)
 
     __repr__ = __str__
  
