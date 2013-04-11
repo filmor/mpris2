@@ -1,4 +1,5 @@
 import dbus
+from sys import version_info
 
 class MaybeDbusMethod():
     def __init__(self, proxies, method_name):
@@ -37,12 +38,20 @@ class DbusObject(object):
                     del self._objects[interface]
 
     def __str__(self):
-        return "<{}(bus_name='{}')>".format(self.__class__.__name__, self._objects.popitem()[1].requested_bus_name)
+        ver = version_info.major
+        if ver < 3:
+            return "<%s(bus_name='%s')>" % (self.__class__.__name__, self._objects.popitem()[1].requested_bus_name)
+        return "<{}(bus_name='{}')>".format(self.__class__.__qualname__, self._objects.popitem()[1].requested_bus_name)
+#        try:
+#            return "<{}(bus_name='{}')>".format(self.__class__.__qualname__, self._objects.popitem()[1].requested_bus_name)
+#        except AttributeError:
+#            return "<{}(bus_name='{}')>".format(self.__class__.__name__, self._objects.popitem()[1].requested_bus_name)
 
     __repr__ = __str__
-
+ 
     def _get_dbus_attr(self, item):
         for interface in self._objects.keys():
+        # try/except for valid interface
             if item in self._properties.GetAll(interface):
                 return self._properties.Get(interface, item)
 
