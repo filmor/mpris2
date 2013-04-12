@@ -1,6 +1,8 @@
 import dbus
+
 from sys import version_info
 from lxml import etree
+from collections import defaultdict
 
 class MaybeDbusMethod():
     def __init__(self, proxies, method_name):
@@ -74,9 +76,19 @@ class DbusObject(object):
             proxy.connect_to_signal(signal_name, handler)
 
     def introspect(self):
-        interface = 'org.freedesktop.DBus.Introspectable'
-        xml_data = etree.fromstring(dbus.Interface(self._proxy, interface).Introspect())
-        for item in xml_data.iter():
-            print item.attrib
-        return 
+        _interface = 'org.freedesktop.DBus.Introspectable'
+        xml_data = etree.fromstring(dbus.Interface(self._proxy, _interface).Introspect())
+        interfaces = defaultdict(list)
+        pack = ''         
+        for elem in xml_data.iter():
+            if elem.values():
+                if 'org' in elem.values()[0]:
+                        interfaces[elem.values()[0]]
+                        pack = elem.values()[0]
+                else:                   
+                    if len(elem.values()) < 2:
+                        interfaces[pack].append(elem.values()[0])     
+                    else:     
+                        interfaces[pack].append(elem.values())
+        return interfaces
                 
